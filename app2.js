@@ -1,4 +1,4 @@
- var chart = (function(){
+ var ChartApp = (function(){
     
     var days = [ ],
     failed = [ ],
@@ -72,116 +72,112 @@
   	}
 
   	// Builds two charts on button click with specified el id`s
-    function drawChart(chart1_id, chart2_id, button_id){
+    function drawChart(chart1_id, chart2_id){
 	    $(document).ready(function(){
-	    	$(button_id).click(function(){
-	        $(chart1_id).highcharts({
-	            chart: {
-	                type: 'column'
-	            },
-	            title: {
-	                text: 'Passing/failing per day'
-	            },
-	            xAxis: {
-	                categories: days.slice(0).reverse()
-	            },
-	            yAxis: {
-	                min: 0,
-	                title: {
-	                    text: 'Total launches'
-	                },
-	                stackLabels: {
-	                    enabled: true,
-	                    style: {
-	                        fontWeight: 'bold',
-	                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-	                    }
-	                }
-	            },
-	            legend: {
-	                align: 'right',
-	                x: -30,
-	                verticalAlign: 'top',
-	                y: 25,
-	                floating: true,
-	                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-	                borderColor: '#CCC',
-	                borderWidth: 1,
-	                shadow: false
-	            },
-	            tooltip: {
-	                headerFormat: '<b>{point.x}</b><br/>',
-	                pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-	            },
-	            plotOptions: {
-	                column: {
-	                    stacking: 'normal',
-	                    dataLabels: {
-	                        enabled: true,
-	                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-	                        style: {
-	                            textShadow: '0 0 3px black'
-	                        }
-	                    }
-	                },
-	            },
-	            series: [{
-	                name: 'Faild',
-	                data: failed.slice(0).reverse(),
-	            }, {
-	                name: 'Passed',
-	                data: passed.slice(0).reverse(),
-	            }]
-	        });
- 					
- 					// Builds second chart on chart2_id
- 					chart = $(chart1_id).highcharts();
-	        $(chart2_id).highcharts({
-	            title: {
-	                text: 'Duration vs. Time',
-	                x: -20 //center
-	            },
-	            xAxis: {
-	            		// Categories for X with new reversed array
-	                categories: days.slice(0).reverse()
-	            },
-	            yAxis: {
-	                title: {
-	                    text: 'Duration'
-	                },
-	                plotLines: [{
-	                    value: 0,
-	                    width: 1,
-	                    color: '#808080'
-	                }]
-	            },
-	            tooltip: {
-	                valueSuffix: 's'
-	            },
-	            legend: {
-	                layout: 'vertical',
-	                align: 'right',
-	                verticalAlign: 'middle',
-	                borderWidth: 0
-	            },
-	            series: [{
-	                name: 'Duration',
-	                data: duration.slice(0).reverse()
-	            }]
-	        });
-	    }); 
+        $(chart1_id).highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Passing/failing per day'
+            },
+            xAxis: {
+                categories: days.slice(0).reverse()
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total launches'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                headerFormat: '<b>{point.x}</b><br/>',
+                pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black'
+                        }
+                    }
+                },
+            },
+            series: [{
+                name: 'Faild',
+                data: failed.slice(0).reverse(),
+            }, {
+                name: 'Passed',
+                data: passed.slice(0).reverse(),
+            }]
+        });
+					
+					// Builds second chart on chart2_id
+					chart = $(chart1_id).highcharts();
+        $(chart2_id).highcharts({
+            title: {
+                text: 'Duration vs. Time',
+                x: -20 //center
+            },
+            xAxis: {
+            		// Categories for X with new reversed array
+                categories: days.slice(0).reverse()
+            },
+            yAxis: {
+                title: {
+                    text: 'Duration'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: 's'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Duration',
+                data: duration.slice(0).reverse()
+            }]
+        });
  		})
 	}
 
 	// Changes color of the data if it`s greater than outlier value
 	function showOutliers(button_id){
 		$(document).ready(function(){
-	    $(button_id).click(function () {
-	            for (i=0 ; i < chart.series[0].data.length ; i++ ){
-	                if (chart.series[0].data[i].y > outlier )
-	                    chart.series[0].data[i].graphic.attr("fill","#ff0000");
-	                }
-	    }); 
+        for (i=0 ; i < chart.series[0].data.length ; i++ ){
+            if (chart.series[0].data[i].y > outlier )
+                chart.series[0].data[i].graphic.attr("fill","#ff0000");
+        }
 	  });
   } 
 
@@ -192,8 +188,3 @@
 	};
   
 })();
-
-// Builed 
-chart.createData("session_history.csv");
-chart.buildCharts('#container1','#container2','#draw');
-chart.outliers('#outliers');

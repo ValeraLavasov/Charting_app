@@ -1,0 +1,21 @@
+.loading {
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	height: 32px;
+	width: 32px;
+	z-index: 1;
+	background-image: url(ajax-loader.gif);
+}
+
+#yield {
+	position: absolute;
+	width: 100%;
+	background: white;
+	top: 0px;
+	z-index: 200;
+}
+button {
+	padding: 5px;
+	background: silver; 
+}
