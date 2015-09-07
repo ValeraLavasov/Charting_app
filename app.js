@@ -3,28 +3,32 @@ $(document).ready(function () {
 		  template: 'info',
 		  el: $('#yield'),
 		  events: {
-		  	"click #show": 							"renderCharts",
-		  	"click #highlightOutliers": "highlightOutliers",
-		  	"click #info": 							"displayInfo"
+		  	"click #show": 							 "renderCharts",
+		  	"click #highlightAbnormals": "highlightAbnormals",
+		  	"click #info": 							 "displayInfo"
 		  },
+
 		  initialize: function(){
 		  		ChartApp.createData("session_history.csv");
 		  		this.render();
-
 		  },
+
 		  renderCharts: function(){
 		  	this.template = 'charts' ;
 		  	this.render(function(){
 		  		ChartApp.buildCharts('#container1','#container2');
 		  	});  	
 		  },
-		  highlightOutliers: function(){
-		  	ChartApp.outliers('#highlightOutliers');
+
+		  highlightAbnormals: function(){
+		  	ChartApp.abnormals('#highlightAbnormals');
 		  },
+
 		  displayInfo: function(){
 		  	this.template = 'info';
 		  	this.render();
 		  },
+
 		  render: function(callBack){
 		    var that = this;
 		    $.get("templates/" + this.template + ".html", function(template){
